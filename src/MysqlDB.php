@@ -1,49 +1,11 @@
 <?php
-/**
- * MysqlDB class
- * A simple database connector for lazy programmers. 
- * 
- * 
- * @author    huy   (nvquanghuy.com)
- * @lastedit  Sep 24, 2011
- * 
- * This class only support PHP5
- * - If you want to make it support PHP4, change the constructor
- *  from __constructor to MysqlDB()
- * 
- * There are 3 state of database connection:
- * 1 - hasn't connected
- * 2 - connected, not select database
- * 3 - connected and database selected
- * 
- * NOTES:
- * - Create a folder logs and make it writeable. This folder will store all
- *  error logs that the system caught.
- * - Please make sure magic quotes is turned off. 
- * 
- * CHANGES LOG:
- * * 1.01
- * - Add query_select_single
- * - Add insert_batch
- * * 1.2
- * - Add support for slashing, on/off thru $this->handleSlashes (bool)
- * * 26/12/2010:
- * - Add $sql_suffix_options to insert_batch
- *
- * Sep 24, 2011:
- * > Added query_select_manualkey
- * > Added query_row, make it replace query_single
- * > Added query_col, make it replace query_select_single
- *
- * Sep 27, 2011
- * > Added createExpression()
- * > Auto-serializing array variable 
- */
+ namespace Elshawadfi\Mysqldb;
+
 
 define('CRLF', "\r\n");
 error_reporting(E_ALL);
 
- namespace elshawadfi\mysqldb;
+
 
 class MysqlDB {
 	/** Relative path to error logs folder
@@ -159,6 +121,7 @@ class MysqlDB {
 	 */
 	public function get_tables() {
 		$tables = $this->query_select ( "SHOW TABLES;", "num" );
+		return $tables;
 		if (! function_exists ( '__tmp_huy_db_tables' )) {
 			function __tmp_huy_db_tables($val) {
 				return $val [0];
